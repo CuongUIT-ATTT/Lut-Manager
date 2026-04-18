@@ -14,13 +14,18 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Missing file path' });
     }
 
-    const SUPABASE_URL = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
-    const SUPABASE_KEY = process.env.VITE_SUPABASE_KEY || process.env.SUPABASE_KEY;
+    const SUPABASE_URL = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const SUPABASE_KEY = process.env.VITE_SUPABASE_KEY || process.env.SUPABASE_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     const SECRET_KEY = process.env.LUT_SECRET_KEY; // Lấy Secret Key giải mã từ biến môi trường Vercel
 
-    if (!SECRET_KEY) {
-        return res.status(500).json({ error: 'Server misconfiguration: Missing Secret Key' });
+    if (!SUPABASE_URL) {
+        return res.status(500).json({ error: 'Server misconfiguration: Missing Supabase URL in Environment Variables.' });
     }
+
+    if (!SECRET_KEY) {
+        return res.status(500).json({ error: 'Server misconfiguration: Missing LUT_SECRET_KEY in Environment Variables.' });
+    }
+
 
     try {
         // Lấy file mã hóa (.atg) từ Supabase Storage
