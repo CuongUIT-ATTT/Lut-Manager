@@ -73,3 +73,42 @@
         .hidden { display: none; }
         #status { font-size: 0.7rem; padding: 10px; color: #10b981; border-top: 1px solid var(--border); margin-top: auto; }
         #hint { position: absolute; text-align: center; color: #64748b; font-weight: 600; pointer-events: none; }
+
+        /* Responsive Design (Mobile & Tablet) */
+        @media (max-width: 900px) {
+            body { 
+                display: flex; 
+                flex-direction: column; 
+                height: auto; 
+                overflow-y: auto; 
+            }
+            .sidebar-left { 
+                border-right: none; 
+                border-bottom: 1px solid var(--border); 
+                max-height: 250px; /* Cho phép cuộn danh mục */
+            }
+            .main-center { 
+                padding: 15px; 
+                min-height: 60vh; 
+            }
+            .sidebar-right { 
+                border-left: none; 
+                border-top: 1px solid var(--border); 
+                height: 400px; /* Fixed height for LUT list on mobile */
+            }
+            .control-bar { 
+                flex-direction: column; 
+                text-align: center; 
+                padding: 15px; 
+            }
+            .canvas-box { 
+                min-height: 300px; 
+            }
+            .lut-name-display p {
+                font-size: 0.85rem;
+            }
+            .gallery-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
