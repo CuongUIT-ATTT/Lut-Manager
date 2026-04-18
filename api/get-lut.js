@@ -26,11 +26,12 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Server misconfiguration: Missing LUT_SECRET_KEY in Environment Variables.' });
     }
 
-
     try {
-        // Lấy file mã hóa (.atg) từ Supabase Storage
-        const cloudPath = fileName.replace('.cube', '.atg');
-        const url = `${SUPABASE_URL}/storage/v1/object/public/luts/${cloudPath}`;
+        // Trích xuất file name gốc (bỏ qua mọi thư mục loằng ngoằng) vì encrypt_luts.py sinh ra file phẳng
+        const baseName = fileName.split('/').pop().replace('.cube', '.atg');
+
+        // Lấy file mã hóa (.atg) từ Supabase Storage (dạng phẳng)
+        const url = `${SUPABASE_URL}/storage/v1/object/public/luts/${encodeURIComponent(baseName)}`;
         
         const response = await fetch(url, {
             headers: SUPABASE_KEY ? {
@@ -40,13 +41,14 @@ export default async function handler(req, res) {
         });
 
         if (!response.ok) {
-            return res.status(response.status).json({ error: `File not found or Supabase error: ${response.status}` });
+            return res.status(response.status).json({ error: `File not found on Supabase: ${response.status} (${baseName})` });
         }
 
         const encryptedBuffer = Buffer.from(await response.arrayBuffer());
 
         // 2. XOR Decryption ngay tại Server
-        const salt = fileName;
+        // SALT được dùng lúc bạn chạy mã hóa python chính là tên file .atg
+        const salt = baseName;
         const key = crypto.createHash('sha256').update(SECRET_KEY + salt).digest();
 
         const decryptedBuffer = Buffer.alloc(encryptedBuffer.length);
