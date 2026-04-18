@@ -30,8 +30,8 @@ export default async function handler(req, res) {
         // Trích xuất file name gốc (bỏ qua mọi thư mục loằng ngoằng) vì encrypt_luts.py sinh ra file phẳng
         const baseName = fileName.split('/').pop().replace('.cube', '.atg');
 
-        // Lấy file mã hóa (.atg) từ Supabase Storage (dạng phẳng)
-        const url = `${SUPABASE_URL}/storage/v1/object/public/luts/${encodeURIComponent(baseName)}`;
+        // Lấy file mã hóa (.atg) từ Supabase Storage (bên trong thư mục con LUT đã tạo trên Cloud)
+        const url = `${SUPABASE_URL}/storage/v1/object/public/luts/LUT/${encodeURIComponent(baseName)}`;
         
         const response = await fetch(url, {
             headers: SUPABASE_KEY ? {
