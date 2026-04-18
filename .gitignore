@@ -35,3 +35,12 @@ obfuscate_secret.py
 Giao_Dien_LUT_SaaS.html
 luts_config_raw.json
 Thong_Ke_LUT.md
+
+# --- Vite & Deployment ---
+.env
+dist/
+node_modules/
+.env.local
+.env.*.local
+
+.vercel
