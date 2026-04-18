@@ -1,0 +1,37 @@
+# --- Nguyên liệu gốc (Đã upload lên Supabase hoặc quá nặng) ---
+01_Kho_LUT_Chinh_Mau/
+02_Presets_Cai_Dat/
+03_Video_Huong_Dan/
+04_Anh_Tham_Khao/
+05_Tep_Nen_Archive/
+06_Tai_Lieu_Huong_Dan/
+07_Apple_Log_iPhone_15Pro_Plus/
+LUT/
+LUT_ENCRYPTED/
+"1Click preview/"
+02_Preseter_Lightroom/
+03_CameraRaw/
+
+# --- Kết quả giải mã/mã hóa ---
+encrypted_assets/
+
+# --- Python & Hệ thống ---
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Các script hỗ trợ (Dùng cục bộ) ---
+patch_html.py
+patch_html_v2.py
+obfuscate_secret.py
+
+# --- File rác/dư thừa ---
+Giao_Dien_LUT_SaaS.html
+luts_config_raw.json
+Thong_Ke_LUT.md
